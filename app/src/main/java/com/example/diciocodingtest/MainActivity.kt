@@ -10,22 +10,27 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.diciocodingtest.navigation.SetupNavGraph
+import com.example.diciocodingtest.ui.screens.Screen
 import com.example.diciocodingtest.ui.theme.DicioCodingTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private lateinit var navController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             DicioCodingTestTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-
-                }
+                navController = rememberNavController()
+                SetupNavGraph(
+                    navController = navController,
+                    startDestination = Screen.LandingScreen.route
+                )
             }
         }
     }
