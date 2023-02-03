@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">DicioCodingTest</string>
+    <string name="id">Id</string>
+    <string name="name">Nombre</string>
+    <string name="first_family_name">Apellido Paterno</string>
+    <string name="second_family_name">Apellido Materno</string>
+    <string name="email">Email</string>
+    <string name="age">Edad</string>
+    <string name="dob">FechaNac</string>
+
+    <string name="street">Calle</string>
+    <string name="number">Numero</string>
+    <string name="neighborhood">Colonia</string>
+    <string name="municipality">Delegacion</string>
+    <string name="state">Estado</string>
+    <string name="zip_code">CP</string>
 </resources>
