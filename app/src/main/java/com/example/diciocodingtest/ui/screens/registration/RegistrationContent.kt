@@ -1,5 +1,6 @@
 package com.example.diciocodingtest.ui.screens.registration
 
+import android.app.DatePickerDialog
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -12,6 +13,8 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +31,8 @@ import com.example.diciocodingtest.R
 import com.example.diciocodingtest.ui.theme.LARGE_PADDING
 import com.example.diciocodingtest.ui.theme.LARGE_PADDING_I
 import com.example.diciocodingtest.ui.theme.MEDIUM_PADDING
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @Composable
@@ -66,6 +71,24 @@ fun RegistrationContent(
     val bitmap = remember { mutableStateOf<Bitmap?>(null) }
 
     val scrollState = rememberScrollState()
+
+
+    val mCalendar = Calendar.getInstance()
+    val year = mCalendar.get(Calendar.YEAR)
+    val month = mCalendar.get(Calendar.MONTH)
+    val day = mCalendar.get(Calendar.DAY_OF_MONTH)
+    val mDatePickerDialog = DatePickerDialog(
+        LocalContext.current, { _, selectedYear:Int, selectedMonth:Int, selectedDay:Int ->
+            mCalendar.set(Calendar.YEAR, selectedYear)
+            mCalendar.set(Calendar.MONTH, selectedMonth)
+            mCalendar.set(Calendar.DAY_OF_MONTH, selectedDay)
+            val simpleDateFormat =
+                SimpleDateFormat("dd-MMMM-yyyy", Locale( "ES" , "MX" ))
+            val dobFormatted = simpleDateFormat.format(mCalendar.time)
+            onDobChange(dobFormatted.uppercase())
+        }, year, month, day
+    )
+
 
     val launcher
             = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -178,14 +201,25 @@ fun RegistrationContent(
                 textStyle = MaterialTheme.typography.body1,
                 singleLine = true
             )
+            Divider(
+                modifier = Modifier.height(MEDIUM_PADDING),
+                color = MaterialTheme.colors.background
+            )
             // dob
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = dob,
                 onValueChange = { onDobChange(it) },
-                label = { Text(text = stringResource(id = R.string.dob)) },
                 textStyle = MaterialTheme.typography.body1,
-                singleLine = true
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.DateRange,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable {mDatePickerDialog.show()}
+                    )
+                }
             )
             // street
             OutlinedTextField(
