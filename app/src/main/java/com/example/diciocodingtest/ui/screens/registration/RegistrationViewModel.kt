@@ -3,8 +3,8 @@ package com.example.diciocodingtest.ui.screens.registration
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.diciocodingtest.domain.model.InfoOut
@@ -46,8 +46,10 @@ class RegistrationViewModel @Inject constructor(
     var state = mutableStateOf("")
     var zipCode = mutableStateOf("")
     var base64String = mutableStateOf("")
+    val photoUri = mutableStateOf<Uri?>(null)
 
     fun saveUser(){
+
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val infoOut = InfoOut(
@@ -68,7 +70,7 @@ class RegistrationViewModel @Inject constructor(
                     dob = dob.value,
                     info = Utils.formatJsonString(infoOut)
                 )
-
+                Log.d(TAGS, "eom-> $user")
                 useCases.saveUserUCase.invoke(user)
                 clearFields()
 
@@ -94,6 +96,7 @@ class RegistrationViewModel @Inject constructor(
         state.value = ""
         zipCode.value = ""
         base64String.value = ""
+        photoUri.value = null
     }
 
     fun updateName(newName:String){
@@ -142,6 +145,10 @@ class RegistrationViewModel @Inject constructor(
 
     fun updateZipCode(newValue:String){
         zipCode.value = newValue
+    }
+
+    fun updateUri(newValue:Uri){
+        photoUri.value = newValue
     }
 
     fun updateBase64String(bitmap: Bitmap) {
