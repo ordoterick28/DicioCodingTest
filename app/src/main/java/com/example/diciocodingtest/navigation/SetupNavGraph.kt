@@ -5,7 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.diciocodingtest.ui.screens.LandingScreen
-import com.example.diciocodingtest.ui.screens.Screen
 
 @Composable
 fun SetupNavGraph(
@@ -17,7 +16,7 @@ fun SetupNavGraph(
         startDestination = startDestination
     ){
         composable(route = Screen.LandingScreen.route) {
-            LandingScreen(navController = navController)
+            LandingScreen()
         }
     }
 }

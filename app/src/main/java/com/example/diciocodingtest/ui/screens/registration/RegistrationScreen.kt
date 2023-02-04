@@ -1,10 +1,10 @@
 package com.example.diciocodingtest.ui.screens.registration
 
+import android.net.Uri
 import android.util.Log
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 
@@ -31,9 +31,10 @@ fun RegistrationScreen(
     val state: String by viewModel.state
     val zipCode: String by viewModel.zipCode
 //    val base64: String by viewModel.base64
+    val photoUri: Uri? = viewModel.photoUri.value
 
     val user by viewModel.user.collectAsState()
-    Log.d(TAGS, "eom-> $user")
+
 
     Scaffold(
         topBar = { },
@@ -91,6 +92,10 @@ fun RegistrationScreen(
                     it?.let { bitmap ->
                         viewModel.updateBase64String(bitmap)
                     }
+                },
+                photoUri = photoUri,
+                onUriChange = {
+                    viewModel.updateUri(it)
                 },
                 onSave = {
                     viewModel.saveUser()

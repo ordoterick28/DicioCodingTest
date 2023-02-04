@@ -74,8 +74,11 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
     // accompanist-pager
-    implementation "com.google.accompanist:accompanist-pager:0.23.0"
-    implementation "com.google.accompanist:accompanist-pager-indicators:0.23.0"
+//    implementation "com.google.accompanist:accompanist-pager:0.23.0"
+//    implementation "com.google.accompanist:accompanist-pager-indicators:0.23.0"
+
+    implementation("com.google.accompanist:accompanist-pager:0.17.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.17.0")
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

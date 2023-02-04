@@ -13,6 +13,14 @@ val Teal200 = Color(0xFF03DAC5)
 val LightGray = Color(0xFFD8D8D8)
 val MediumGray = Color(0xFF818589)
 
+val Colors.tabBackgroundColor: Color
+    @Composable
+    get() = Purple500
+
+val Colors.tabContentColor: Color
+    @Composable
+    get() = Color.White
+
 val Colors.subtitleTaskItemBackgroundColor: Color
     @Composable
     get() = MediumGray
